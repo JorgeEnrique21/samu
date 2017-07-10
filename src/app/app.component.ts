@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
     title = 'Detalhes da SAMU, maravilhoso, né?';
     ufs : UF[];
     uf: UF;
-    dados: Dados;
+    dados: Dados[];
     dados_da_samu : Dados[];
     constructor(private ufService: UFService, private samuService: SamuService)
     { }

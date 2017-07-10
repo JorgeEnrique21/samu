@@ -9,12 +9,15 @@ export class SamuService {
   getAllMunicipiosAtendidosPorEstado(): Dados[] {
     return VALORES;
   }
-  encontrarSAMU(id: number): Dados{
-    let dados: Dados;
+  encontrarSAMU(id: number): Dados[]{
+    let dados: Dados[] = [];
+    let i = 0;
       for (let entry of VALORES) {
           if (entry.uf_id==id) {
-              return entry;
+              dados[i] = entry;
+              i++;
           }
       }
+      return dados;
   }
 }
