@@ -8,7 +8,7 @@ export class UFService {
   getAll(): UF[] {
     return UFs;
   }
-  encontrarUF(id: number): UF{
+  getPorID(id: number): UF{
     let uf: UF;
       for (let entry of UFs) {
           if (entry.id==id) {

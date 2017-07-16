@@ -4,7 +4,7 @@ import { Dados } from '../types/samu';
 import { VALORES } from './mock-samu_municipios_atendidos_por_estado';
 
 import { UF } from '../types/uf';
-
+import { UFs } from './mock-ufs';
 
 @Injectable()
 export class SamuService {
@@ -26,11 +26,11 @@ export class SamuService {
     return Math.round(soma/qtd);
   }
 
-  encontrarSAMU(id: number): Dados[]{
+  getPorUFMunicipiosAtendidosPorEstado(uf: UF): Dados[]{
     let dados: Dados[] = [];
     let i = 0;
       for (let entry of VALORES) {
-          if (entry.uf_id==id) {
+          if (entry.uf_id==uf.id) {
               dados[i] = entry;
               i++;
           }
