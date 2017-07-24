@@ -1,9 +1,11 @@
 <!--The whole content below can be removed with the new code.-->
 <div style="text-align:center" class="title">
-  <h1>{{title}}<br>{{uf.nome}}</h1>
-  <details>ID da UF: {{uf.id}}<br>Área: {{uf.area}}km²<br>Média de municípios atendidos desde 2006 = {{media}}</details><br>
+  <h1>{{title}}<br></h1>
+  <br>
   <h3>Lista de municípios atendidos por ano:</h3>
-  <li *ngFor = "let dado of dados">
-    <span>{{dado.ano}}: {{dado.valor}} municípios atendidos</span>
-  </li>
+  <div style="text-align:center">
+  <h3><li *ngFor="let atend of dados">
+    UF: {{atend.uf.nome}} Ano: {{atend.ano}}  Municípios atendidos:{{atend.valor}}
+  </li></h3>
+  </div>
 </div>

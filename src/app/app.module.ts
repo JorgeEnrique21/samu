@@ -7,6 +7,7 @@ import { UFService } from './services/uf.service';
 import { SamuService } from './services/samu.service';
 import { DadosUFComponent } from './dados-uf.component';
 import { TodosDadosComponent } from './todos-dados.component';
+import { TodasUFsService } from "./services/todasufs.service";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { TodosDadosComponent } from './todos-dados.component';
       }
     ])
   ],
-  providers: [SamuService, UFService],
+  providers: [SamuService, UFService, TodasUFsService],
   bootstrap: [AppComponent]
 })
 
