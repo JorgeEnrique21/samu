@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
+import { Headers, Http } from '@angular/http';
+import 'rxjs/add/operator/toPromise';
 
+import { DadoNome } from '../types/todasufs'
 import { Dados } from '../types/samu';
-import { VALORES } from './mock-samu_municipios_atendidos_por_estado';
+// import { VALORES } from '../in-memory-data.service';
 
 import { UF } from '../types/uf';
 import { UFs } from './mock-ufs';
@@ -9,32 +12,36 @@ import { UFs } from './mock-ufs';
 @Injectable()
 export class SamuService {
 
-  getAllMunicipiosAtendidosPorEstado(): Dados[] {
-    return VALORES;
-  }
-  mediaMunicipio(id: number): number {
-    let uf: UF;
-    let soma = 0;
-    let qtd = 0;
-    for (let entrada of VALORES){
-      if(entrada.uf_id === id)
-      {
-        soma += entrada.valor;
-        qtd++;
-      }
-    }
-    return Math.round(soma/qtd);
+  private dadosUrl = 'api/VALORES';  // URL to web api
+
+  constructor(private http: Http) { }
+
+  getAllMunicipiosAtendidosPorEstado(): Promise<Dados[]> {
+    return this.http.get(this.dadosUrl)
+    .toPromise()
+    .then(response => response.json().data as Dados[])
+    .catch(this.handleError);
   }
 
-  getPorUFMunicipiosAtendidosPorEstado(uf: UF): Dados[]{
-    let dados: Dados[] = [];
-    let i = 0;
-      for (let entry of VALORES) {
-          if (entry.uf_id==uf.id) {
-              dados[i] = entry;
-              i++;
-          }
-      }
-      return dados;
+  private handleError(error: any): Promise<any> {
+    console.error('Ocorreu um erro', error);
+    return Promise.reject(error.message || error);
+  }
+
+  calcularMedia(dados: Dados[]): number {
+      let soma = 0;
+      dados.forEach(dado => soma+= dado.valor);
+      return Math.round(soma/dados.length);
+  }
+
+  getPorUFMunicipiosAtendidosPorEstado(uf_id: number): Promise<Dados[]>{
+    return this.http.get(this.dadosUrl)
+      .toPromise()
+      .then((response) => {
+        let dados = response.json().data as Dados[];
+        let resumo = dados.filter(dado => dado.uf_id == uf_id);
+        return resumo;
+      })
+      .catch(this.handleError);
   }
 }

@@ -8,6 +8,9 @@ import { SamuService } from './services/samu.service';
 import { DadosUFComponent } from './dados-uf.component';
 import { TodosDadosComponent } from './todos-dados.component';
 import { TodasUFsService } from "./services/todasufs.service";
+import { HttpModule }    from '@angular/http';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService }  from './in-memory-data.service';
 
 @NgModule({
   declarations: [
@@ -19,20 +22,22 @@ import { TodasUFsService } from "./services/todasufs.service";
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      {
-        path: 'resumo',
-        component: ResumoComponent
-      },
-      {
-        path: 'dados-uf',
-        component: DadosUFComponent
-      },
-      {
-        path: 'todos-dados',
-        component: TodosDadosComponent
-      }
-    ])
-  ],
+        {
+          path: 'resumo',
+          component: ResumoComponent
+        },
+        {
+          path: 'dados-uf',
+          component: DadosUFComponent
+        },
+        {
+          path: 'todos-dados',
+          component: TodosDadosComponent
+        }
+      ]),
+    HttpModule,
+    InMemoryWebApiModule.forRoot(InMemoryDataService)
+    ],
   providers: [SamuService, UFService, TodasUFsService],
   bootstrap: [AppComponent]
 })

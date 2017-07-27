@@ -11,8 +11,7 @@ import {UFs} from './services/mock-ufs';
 @Component({
   selector: 'my-resumo',
   templateUrl: './resumo.component.html',
-  styleUrls: ['./app.component.css'],
-  providers: [UFService, SamuService]
+  styleUrls: ['./app.component.css']
 })
 
 export class ResumoComponent implements OnInit {
@@ -27,6 +26,8 @@ export class ResumoComponent implements OnInit {
     ngOnInit(): void {
         this.ufs = this.ufService.getAll();
         this.uf = this.ufService.getPorID(23);
-        this.media = this.samuService.mediaMunicipio(23);
+        // this.media = this.samuService.mediaMunicipio(23);
+        this.samuService.getPorUFMunicipiosAtendidosPorEstado(23).then(
+            dados_da_samu => this.media = this.samuService.calcularMedia(dados_da_samu));
     }
 }
